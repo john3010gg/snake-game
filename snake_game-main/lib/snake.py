@@ -64,7 +64,6 @@ class Table:
                 self.insert_at(*positions[key], 1)
             else:
                 for position in positions['body']:
-                    print(positions)
                     self.insert_at(*position, 3)
 
 
@@ -145,7 +144,7 @@ class Snake(pygame.sprite.Sprite):
         for part_of_body in self.positions['body']:
             sprite = pygame.sprite.Sprite()
             sprite.image = self.body_image
-            sprite.rect = self.body_image.get_rect(topleft=(part_of_body[0] * 34, part_of_body[1] * 34))
+            sprite.rect = self.body_image.get_rect(topleft=(part_of_body[0] * 34, part_of_body[1] * 34 + 50))
             self.body_sprites.add(sprite)
     
     #actualiza la imagen de la cabeza de la serpiente segun su direccion
