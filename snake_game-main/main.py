@@ -88,6 +88,7 @@ while True:
         x = snake.sprite.positions['head'][0] * 34
         y = snake.sprite.positions['head'][1] * 34 + ORIGIN_Y
         snake.sprite.rect.topleft = (x, y)
+        print(snake_body)
         
         if table.collision:
             keep_game = False  

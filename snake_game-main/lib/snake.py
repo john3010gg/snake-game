@@ -119,6 +119,10 @@ class Snake(pygame.sprite.Sprite):
         if self.direction== [-1,0]:
             self.positions['head'] = [old_head_position_x - 1, old_head_position_y]
 
+        new_head_position_x, new_head_position_y = self.positions['head']
+        if table.valid_position(new_head_position_x, new_head_position_y) and table.table[new_head_position_x][new_head_position_y] == 3:
+            table.collision = True
+
         for i in range(len(self.positions['body'])):
             temp_x, temp_y = self.positions['body'][i]
             self.positions['body'][i] = [old_body_position_x, old_body_position_y]
