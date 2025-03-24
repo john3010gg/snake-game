@@ -1,5 +1,5 @@
 import pygame
-from lib.player import Player
+from lib.snake import Player
 from lib.snake import Snake
 from lib.snake import Table
 from lib.snake import Apple
@@ -24,11 +24,12 @@ snake_speed = 300 #medido en ms
 spawn_apple_speed = 3000
 last_eaten_time = 0
 terrain_img = pygame.image.load('lib/terrain.png')
+sky_img = pygame.image.load('lib/river.png')
 
 # Variables para la puntuación
 score = 0
 points_per_apple = 10   # Puntos por cada manzana comida
-normal_font = pygame.font.Font('lib/PressStart2P-Regular.ttf', 16)
+normal_font = pygame.font.Font('lib/PressStart2P-Regular.ttf', 20)
 font_dead = pygame.font.Font('lib/Creepster-Regular.ttf', 56)
 HIGH_SCORE_FILE = "high_scores.txt"
 
@@ -50,7 +51,7 @@ pygame.display.set_caption('Snake Game')
 
 while True:
 
-    pygame.draw.rect(screen, (50, 50, 50), (0, 0, px_of_square, ORIGIN_Y))  # Grey panel background
+    screen.blit(sky_img, (0,0))  # Grey panel background
     current_time = pygame.time.get_ticks()
     keys = pygame.key.get_pressed()
     screen.blit(terrain_img,(0, ORIGIN_Y))
@@ -61,8 +62,8 @@ while True:
             exit()
 
     # Mostrar la puntuación
-    score_text = normal_font.render(f"Puntuación: {score}", True, (255, 255, 255))
-    screen.blit(score_text, (10, 10))
+    score_text = normal_font.render(f"Puntuación:{score}", True, (54, 21, 2))
+    screen.blit(score_text, (15, 15))
 
     if keep_game:
         last_key_pressed = Player.get_movement(last_key_pressed ,keys)
@@ -96,9 +97,7 @@ while True:
             snake.sprite.new_body()
             last_eaten_time = current_time
             score += points_per_apple  # Incrementar la puntuación
-             # Reproducir el sonido al comer una manzana
             eat_sound.play()
-            # Generar una nueva manzana inmediatamente
             table.insert_apple()
             apple_pos = table.get_element_position(2)
             if apple_pos:
