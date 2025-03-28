@@ -9,6 +9,8 @@ snake = pygame.sprite.GroupSingle()
 apples = pygame.sprite.GroupSingle()
 snake.add(Snake())
 table = Table()
+
+
 ORIGIN_X, ORIGIN_Y = 0, 50
 apple_x, apple_y = 0, 0
 table.insert_at(0, 0, 1)
@@ -26,16 +28,14 @@ sky_img = pygame.image.load('lib/river.png')
 # Variables para la puntuación
 score = 0
 points_per_apple = 10   
-try:
-    normal_font = pygame.font.Font('lib/PressStart2P-Regular.ttf', 15)
-except:
-    normal_font = pygame.font.SysFont(None, 20)  
+
+normal_font = pygame.font.Font('lib/PressStart2P-Regular.ttf', 15)
 font_dead = pygame.font.Font('lib/Creepster-Regular.ttf', 56)
 HIGH_SCORE_FILE = "high_scores.txt"
 
 # Cargar música de fondo
 pygame.mixer.init()
-pygame.mixer.music.load("music/Pokemon Red and Blue OST- Complete Soundtrack.mp3")
+pygame.mixer.music.load("music/pokemon_music.mp3")
 pygame.mixer.music.set_volume(0.3) 
 pygame.mixer.music.play(-1) 
 
@@ -44,7 +44,7 @@ eat_sound = pygame.mixer.Sound("music/apple_effect.mp3")
 eat_sound.set_volume(0.2)  
 
 # Cargar sonido de muerte 
-dead_sound = pygame.mixer.Sound("music/Super Mario Bros sonido muerte  Sonido de videojuegos.mp3")
+dead_sound = pygame.mixer.Sound("music/death_sound.mp3")
 dead_sound.set_volume(0.2)
 
 screen = pygame.display.set_mode((px_of_square,px_of_square + ORIGIN_Y))
@@ -59,7 +59,7 @@ ENTER_NAME = 4
 game_state = ENTER_NAME
 menu_font = pygame.font.Font('lib/PressStart2P-Regular.ttf', 15)
 NORMAL_SPEED = 300
-HARD_SPEED = 100
+HARD_SPEED = 125
 username = ""
 game_over_time = 0
 game_over_delay = 2000  # Tiempo antes de mostrar "SPACE para menú"
@@ -141,6 +141,8 @@ def draw_enter_name():
     screen.blit(prompt, (30, 120))
     screen.blit(name_text, (80, 160))
     screen.blit(enter_text, (60, 200))
+
+
 
 while True:
 
@@ -238,6 +240,7 @@ while True:
                 apple_x = table.get_element_position(2)[0][0] * 34
                 apple_y = table.get_element_position(2)[0][1] * 34 + ORIGIN_Y
                 apples.add(Apple(apple_x, apple_y))
+  
     elif game_state == GAME_OVER:
         # Mostrar "Game over!" junto con la puntuación por un tiempo definido
         if current_time - game_over_time <= game_over_display_time:

@@ -1,2 +1,0 @@
-# culebrita
-Game of "culebrita
